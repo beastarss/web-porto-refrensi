@@ -1,0 +1,906 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Raka Ardiansyah — Portofolio</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --bg: #0e1116;
+        --card: #161b22;
+        --accent: #5eead4;
+        --text: #e6edf3;
+        --muted: #8b949e;
+        --border: #232a33;
+      }
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      /* NAVBAR */
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(14, 17, 22, 0.85);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-inner {
+        max-width: 1100px;
+        margin: auto;
+        padding: 16px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo {
+        font-weight: 800;
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+      }
+      .logo span {
+        color: var(--accent);
+      }
+      .nav-links {
+        display: flex;
+        gap: 22px;
+        list-style: none;
+      }
+      .nav-links a {
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-weight: 500;
+        transition: 0.25s;
+        position: relative;
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--accent);
+      }
+      .nav-links a.active::after {
+        content: "";
+        position: absolute;
+        bottom: -6px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--accent);
+        border-radius: 2px;
+      }
+      .burger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+      }
+      .burger span {
+        width: 24px;
+        height: 2px;
+        background: var(--text);
+        border-radius: 2px;
+        transition: 0.3s;
+      }
+
+      section {
+        max-width: 1100px;
+        margin: auto;
+        padding: 70px 24px;
+        scroll-margin-top: 80px;
+      }
+      h2.section-title {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+        color: var(--text);
+      }
+      .section-sub {
+        color: var(--muted);
+        margin-bottom: 36px;
+        font-size: 0.95rem;
+      }
+
+      /* HERO */
+      #tentang .hero {
+        display: grid;
+        grid-template-columns: 1fr 220px;
+        gap: 40px;
+        align-items: center;
+      }
+      .hero h1 {
+        font-size: 2.6rem;
+        line-height: 1.2;
+        margin-bottom: 14px;
+      }
+      .hero h1 span {
+        color: var(--accent);
+      }
+      .hero p {
+        color: var(--muted);
+        margin-bottom: 18px;
+        max-width: 540px;
+      }
+      .badge-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .badge {
+        background: var(--card);
+        border: 1px solid var(--border);
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+      .avatar {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--border);
+        display: block;
+      }
+
+      /* SKILLS */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+      }
+      .skill-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 22px;
+        transition: 0.25s;
+      }
+      .skill-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-4px);
+      }
+      .skill-card h3 {
+        font-size: 1rem;
+        margin-bottom: 12px;
+      }
+      .skill-card ul {
+        list-style: none;
+      }
+      .skill-card li {
+        font-size: 0.88rem;
+        color: var(--muted);
+        padding: 6px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .skill-card li:last-child {
+        border-bottom: none;
+      }
+
+      /* PROJECTS / MINI GAMES */
+      .games-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 22px;
+      }
+      .game-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 26px;
+        cursor: pointer;
+        transition: 0.25s;
+      }
+      .game-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-5px);
+      }
+      .game-icon {
+        font-size: 2rem;
+        margin-bottom: 12px;
+      }
+      .game-card h3 {
+        margin-bottom: 8px;
+        font-size: 1.1rem;
+      }
+      .game-card p {
+        color: var(--muted);
+        font-size: 0.87rem;
+        margin-bottom: 16px;
+      }
+      .game-card .play {
+        display: inline-block;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      /* GAME MODAL */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(6px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 200;
+        padding: 20px;
+      }
+      .modal-overlay.open {
+        display: flex;
+      }
+      .modal {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        width: 100%;
+        max-width: 520px;
+        padding: 28px;
+        position: relative;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+      .modal-close {
+        position: absolute;
+        top: 14px;
+        right: 16px;
+        background: none;
+        border: none;
+        color: var(--muted);
+        font-size: 1.4rem;
+        cursor: pointer;
+        line-height: 1;
+      }
+      .modal-close:hover {
+        color: var(--accent);
+      }
+      .modal h3 {
+        margin-bottom: 18px;
+        color: var(--accent);
+      }
+
+      /* QUIZ */
+      .quiz-q {
+        font-size: 1rem;
+        margin-bottom: 16px;
+        font-weight: 600;
+      }
+      .quiz-opt {
+        display: block;
+        width: 100%;
+        text-align: left;
+        background: #0a0d12;
+        border: 1px solid var(--border);
+        color: var(--text);
+        padding: 12px 16px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: 0.2s;
+        font-size: 0.9rem;
+      }
+      .quiz-opt:hover {
+        border-color: var(--accent);
+      }
+      .quiz-opt.correct {
+        background: rgba(34, 197, 94, 0.2);
+        border-color: #22c55e;
+      }
+      .quiz-opt.wrong {
+        background: rgba(239, 68, 68, 0.2);
+        border-color: #ef4444;
+      }
+      .quiz-progress {
+        font-size: 0.8rem;
+        color: var(--muted);
+        margin-bottom: 14px;
+      }
+
+      /* MEMORY */
+      .memory-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+      .mem-card {
+        aspect-ratio: 1;
+        background: #0a0d12;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        cursor: pointer;
+        transition: 0.3s;
+        user-select: none;
+      }
+      .mem-card.flipped {
+        background: rgba(94, 234, 212, 0.15);
+        border-color: var(--accent);
+      }
+      .mem-card.matched {
+        background: rgba(34, 197, 94, 0.15);
+        border-color: #22c55e;
+        opacity: 0.5;
+        pointer-events: none;
+      }
+
+      /* TEBAK ANGKA */
+      .guess-wrap input {
+        width: 100%;
+        padding: 12px 16px;
+        background: #0a0d12;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        color: var(--text);
+        font-size: 1rem;
+        margin-bottom: 12px;
+      }
+      .guess-wrap input:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+      .btn {
+        background: var(--accent);
+        border: none;
+        color: #0e1116;
+        font-weight: 700;
+        padding: 12px 22px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: 0.2s;
+      }
+      .btn:hover {
+        opacity: 0.85;
+      }
+      .btn-outline {
+        background: none;
+        border: 1px solid var(--border);
+        color: var(--text);
+      }
+      .btn-outline:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .guess-msg {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        min-height: 22px;
+      }
+
+      /* CONTACT */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 18px;
+      }
+      .contact-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 22px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        transition: 0.25s;
+      }
+      .contact-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-3px);
+      }
+      .contact-icon {
+        font-size: 1.6rem;
+      }
+      .contact-card small {
+        color: var(--muted);
+        display: block;
+        font-size: 0.75rem;
+      }
+      .contact-card strong {
+        font-size: 0.92rem;
+        font-weight: 600;
+      }
+
+      /* FOOTER */
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 32px 24px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+      footer strong {
+        color: var(--accent);
+      }
+
+      @media (max-width: 760px) {
+        .nav-links {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: var(--bg);
+          flex-direction: column;
+          padding: 20px 24px;
+          gap: 16px;
+          border-bottom: 1px solid var(--border);
+          display: none;
+        }
+        .nav-links.open {
+          display: flex;
+        }
+        .burger {
+          display: flex;
+        }
+        #tentang .hero {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .avatar {
+          margin: auto;
+          width: 150px;
+          height: 150px;
+        }
+        .hero h1 {
+          font-size: 2rem;
+        }
+        .badge-row {
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav>
+      <div class="nav-inner">
+        <div class="logo">RA<span>.</span></div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#tentang" class="active">Tentang</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#proyek">Proyek</a></li>
+          <li><a href="#kontak">Kontak</a></li>
+        </ul>
+        <div class="burger" id="burger">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- TENTANG SAYA -->
+    <section id="tentang">
+      <div class="hero">
+        <div>
+          <h1>Hai, saya <span>Raka Ardiansyah</span></h1>
+          <p>
+            Saya lulusan SMK jurusan RPL di Bandung. Saya membuat website pakai
+            HTML, CSS, dan JavaScript, tanpa framework. Halaman ini saya tulis
+            sendiri dari nol sebagai latihan.
+          </p>
+          <p>
+            Tiga permainan kecil di bawah adalah contoh yang bisa dibuat dengan
+            JavaScript biasa. Silakan dicoba.
+          </p>
+          <div class="badge-row">
+            <span class="badge">📍 Bandung</span>
+            <span class="badge">Terbuka untuk magang</span>
+            <span class="badge">Fokus HTML, CSS, JS</span>
+          </div>
+        </div>
+        <img
+          class="avatar"
+          src="https://images.pexels.com/photos/16160801/pexels-photo-16160801.jpeg"
+          alt="Foto Raka Ardiansyah"
+        />
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <h2 class="section-title">Skills</h2>
+      <p class="section-sub">Yang saya pelajari dan pakai di proyek sendiri.</p>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3>HTML</h3>
+          <ul>
+            <li>Struktur halaman dan form</li>
+            <li>Tag semantik</li>
+            <li>Tabel dan list</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <h3>CSS</h3>
+          <ul>
+            <li>Flexbox dan Grid</li>
+            <li>Media query untuk layar kecil</li>
+            <li>Hover dan transisi sederhana</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <h3>JavaScript</h3>
+          <ul>
+            <li>DOM dan event</li>
+            <li>Array dan object</li>
+            <li>localStorage</li>
+            <li>Fetch API (masih belajar)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROYEK (MINI GAMES) -->
+    <section id="proyek">
+      <h2 class="section-title">Proyek</h2>
+      <p class="section-sub">
+        Mini game yang saya buat dengan JavaScript. Klik kartunya untuk main
+        langsung di halaman ini.
+      </p>
+      <div class="games-grid">
+        <div class="game-card" data-game="quiz">
+          <div class="game-icon">🧠</div>
+          <h3>Kuis Kilat</h3>
+          <p>Lima soal pilihan ganda seputar dasar-dasar web.</p>
+          <span class="play">▶ Mainkan</span>
+        </div>
+        <div class="game-card" data-game="memory">
+          <div class="game-icon">🃏</div>
+          <h3>Memory Match</h3>
+          <p>Cocokkan pasangan emoji yang tersembunyi.</p>
+          <span class="play">▶ Mainkan</span>
+        </div>
+        <div class="game-card" data-game="guess">
+          <div class="game-icon">🎯</div>
+          <h3>Tebak Angka</h3>
+          <p>Tebak angka rahasia antara 1-100 dari petunjuk yang muncul.</p>
+          <span class="play">▶ Mainkan</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- KONTAK -->
+    <section id="kontak">
+      <h2 class="section-title">Kontak</h2>
+      <p class="section-sub">
+        Ada pertanyaan atau tawaran magang? Bisa lewat email atau GitHub.
+      </p>
+      <div class="contact-grid">
+        <a class="contact-card" href="mailto:raka.ardiansyah@example.com">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <small>Email</small><strong>raka.ardiansyah@example.com</strong>
+          </div>
+        </a>
+        <a
+          class="contact-card"
+          href="https://linkedin.com/in/rakardiansyah"
+          target="_blank"
+          rel="noopener"
+        >
+          <div class="contact-icon">💼</div>
+          <div>
+            <small>LinkedIn</small
+            ><strong>linkedin.com/in/rakardiansyah</strong>
+          </div>
+        </a>
+        <a
+          class="contact-card"
+          href="https://github.com/rakardiansyah"
+          target="_blank"
+          rel="noopener"
+        >
+          <div class="contact-icon">🐙</div>
+          <div>
+            <small>GitHub</small><strong>github.com/rakardiansyah</strong>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      &copy; 2025 <strong>Raka Ardiansyah</strong>. Dibuat dengan HTML, CSS, dan
+      JavaScript.
+    </footer>
+
+    <!-- MODAL GAME -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal">
+        <button class="modal-close" id="modalClose">×</button>
+        <div id="gameArea"></div>
+      </div>
+    </div>
+
+    <script>
+      /* ============ NAVBAR ============ */
+      const burger = document.getElementById("burger");
+      const navLinks = document.getElementById("navLinks");
+      burger.addEventListener("click", () => navLinks.classList.toggle("open"));
+      navLinks.querySelectorAll("a").forEach((a) => {
+        a.addEventListener("click", () => navLinks.classList.remove("open"));
+      });
+
+      /* Active link on scroll */
+      const sections = document.querySelectorAll("section");
+      const links = document.querySelectorAll(".nav-links a");
+      window.addEventListener("scroll", () => {
+        let current = "";
+        sections.forEach((s) => {
+          if (window.scrollY >= s.offsetTop - 120) current = s.id;
+        });
+        links.forEach((l) => {
+          l.classList.toggle(
+            "active",
+            l.getAttribute("href") === "#" + current,
+          );
+        });
+      });
+
+      /* ============ MODAL ============ */
+      const overlay = document.getElementById("modalOverlay");
+      const gameArea = document.getElementById("gameArea");
+      const modalClose = document.getElementById("modalClose");
+
+      document.querySelectorAll(".game-card").forEach((card) => {
+        card.addEventListener("click", () => openGame(card.dataset.game));
+      });
+      modalClose.addEventListener("click", closeModal);
+      overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) closeModal();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal();
+      });
+
+      function openGame(type) {
+        overlay.classList.add("open");
+        if (type === "quiz") startQuiz();
+        else if (type === "memory") startMemory();
+        else if (type === "guess") startGuess();
+      }
+      function closeModal() {
+        overlay.classList.remove("open");
+        gameArea.innerHTML = "";
+      }
+
+      /* ============ GAME 1: QUIZ ============ */
+      const quizData = [
+        {
+          q: "Apa kepanjangan dari HTML?",
+          opts: [
+            "Hyper Text Markup Language",
+            "High Tech Modern Language",
+            "Home Tool Markup Language",
+            "Hyperlink Text Mode Language",
+          ],
+          ans: 0,
+        },
+        {
+          q: "Bahasa pemrograman apa yang berjalan di browser?",
+          opts: ["Python", "JavaScript", "Java", "C++"],
+          ans: 1,
+        },
+        {
+          q: "CSS digunakan untuk?",
+          opts: [
+            "Menyimpan data",
+            "Mengatur tampilan",
+            "Mengelola server",
+            "Membuat database",
+          ],
+          ans: 1,
+        },
+        {
+          q: "Method array untuk menambah di akhir?",
+          opts: ["push()", "pop()", "shift()", "unshift()"],
+          ans: 0,
+        },
+        {
+          q: "Di mana data bisa disimpan di browser tanpa database?",
+          opts: ["localStorage", "MySQL", "Node.js", "Figma"],
+          ans: 0,
+        },
+      ];
+      let quizIndex = 0,
+        quizScore = 0;
+
+      function startQuiz() {
+        quizIndex = 0;
+        quizScore = 0;
+        renderQuiz();
+      }
+      function renderQuiz() {
+        if (quizIndex >= quizData.length) {
+          gameArea.innerHTML = `
+      <h3>Kuis Selesai! 🎉</h3>
+      <p style="font-size:1.1rem;margin-bottom:18px">Skor kamu: <strong style="color:var(--accent)">${quizScore}/${quizData.length}</strong></p>
+      <button class="btn" onclick="startQuiz()">Main Lagi</button>
+    `;
+          return;
+        }
+        const item = quizData[quizIndex];
+        gameArea.innerHTML = `
+    <h3>Kuis Kilat</h3>
+    <div class="quiz-progress">Pertanyaan ${quizIndex + 1} dari ${quizData.length} • Skor: ${quizScore}</div>
+    <div class="quiz-q">${item.q}</div>
+    <div id="quizOpts"></div>
+  `;
+        const optsWrap = document.getElementById("quizOpts");
+        item.opts.forEach((opt, i) => {
+          const btn = document.createElement("button");
+          btn.className = "quiz-opt";
+          btn.textContent = opt;
+          btn.onclick = () => {
+            const allBtns = optsWrap.querySelectorAll(".quiz-opt");
+            allBtns.forEach((b) => (b.disabled = true));
+            if (i === item.ans) {
+              btn.classList.add("correct");
+              quizScore++;
+            } else {
+              btn.classList.add("wrong");
+              allBtns[item.ans].classList.add("correct");
+            }
+            setTimeout(() => {
+              quizIndex++;
+              renderQuiz();
+            }, 900);
+          };
+          optsWrap.appendChild(btn);
+        });
+      }
+
+      /* ============ GAME 2: MEMORY MATCH ============ */
+      const emojis = ["🍕", "🚀", "🎧", "🐱", "🌈", "⚡", "🍩", "🎮"];
+      let firstCard = null,
+        lockBoard = false,
+        matchedPairs = 0,
+        memMoves = 0;
+
+      function startMemory() {
+        const deck = [...emojis, ...emojis].sort(() => Math.random() - 0.5);
+        firstCard = null;
+        lockBoard = false;
+        matchedPairs = 0;
+        memMoves = 0;
+        gameArea.innerHTML = `
+    <h3>Memory Match</h3>
+    <div style="font-size:.85rem;color:var(--muted);margin-bottom:14px">
+      Langkah: <span id="memMoves">0</span> • Pasangan: <span id="memPairs">0</span>/8
+    </div>
+    <div class="memory-grid" id="memGrid"></div>
+  `;
+        const grid = document.getElementById("memGrid");
+        deck.forEach((emoji, i) => {
+          const card = document.createElement("div");
+          card.className = "mem-card";
+          card.dataset.emoji = emoji;
+          card.dataset.index = i;
+          card.textContent = "";
+          card.onclick = () => flipCard(card);
+          grid.appendChild(card);
+        });
+      }
+
+      function flipCard(card) {
+        if (
+          lockBoard ||
+          card.classList.contains("flipped") ||
+          card.classList.contains("matched")
+        )
+          return;
+        card.classList.add("flipped");
+        card.textContent = card.dataset.emoji;
+
+        if (!firstCard) {
+          firstCard = card;
+          return;
+        }
+
+        memMoves++;
+        document.getElementById("memMoves").textContent = memMoves;
+
+        if (firstCard.dataset.emoji === card.dataset.emoji) {
+          firstCard.classList.add("matched");
+          card.classList.add("matched");
+          matchedPairs++;
+          document.getElementById("memPairs").textContent = matchedPairs;
+          firstCard = null;
+          if (matchedPairs === 8) {
+            setTimeout(() => {
+              gameArea.innerHTML = `
+          <h3>Selesai! 🎉</h3>
+          <p style="margin-bottom:18px">Kamu menyelesaikan dalam <strong style="color:var(--accent)">${memMoves} langkah</strong>.</p>
+          <button class="btn" onclick="startMemory()">Main Lagi</button>
+        `;
+            }, 600);
+          }
+        } else {
+          lockBoard = true;
+          const f = firstCard;
+          setTimeout(() => {
+            f.classList.remove("flipped");
+            f.textContent = "";
+            card.classList.remove("flipped");
+            card.textContent = "";
+            lockBoard = false;
+            firstCard = null;
+          }, 800);
+        }
+      }
+
+      /* ============ GAME 3: TEBAK ANGKA ============ */
+      let secretNumber, guessAttempts;
+
+      function startGuess() {
+        secretNumber = Math.floor(Math.random() * 100) + 1;
+        guessAttempts = 0;
+        gameArea.innerHTML = `
+    <h3>Tebak Angka</h3>
+    <p style="color:var(--muted);font-size:.88rem;margin-bottom:16px">
+      Saya memilih angka antara 1–100. Tebak dalam sesedikit mungkin percobaan!
+    </p>
+    <div class="guess-wrap">
+      <input type="number" id="guessInput" min="1" max="100" placeholder="Masukkan tebakanmu...">
+      <button class="btn" id="guessBtn" style="width:100%">Tebak!</button>
+      <div class="guess-msg" id="guessMsg"></div>
+      <div style="font-size:.82rem;color:var(--muted);margin-top:8px">Percobaan: <span id="guessCount">0</span></div>
+    </div>
+  `;
+        const input = document.getElementById("guessInput");
+        const btn = document.getElementById("guessBtn");
+        const msg = document.getElementById("guessMsg");
+        const count = document.getElementById("guessCount");
+
+        function submitGuess() {
+          const val = parseInt(input.value);
+          if (isNaN(val) || val < 1 || val > 100) {
+            msg.textContent = "⚠️ Masukkan angka 1–100.";
+            msg.style.color = "#ef4444";
+            return;
+          }
+          guessAttempts++;
+          count.textContent = guessAttempts;
+          if (val === secretNumber) {
+            msg.innerHTML = `🎉 Benar! Angkanya <strong>${secretNumber}</strong>. Kamu menebak dalam <strong>${guessAttempts}</strong> percobaan.`;
+            msg.style.color = "#22c55e";
+            btn.disabled = true;
+            input.disabled = true;
+            const again = document.createElement("button");
+            again.className = "btn btn-outline";
+            again.style.marginTop = "12px";
+            again.style.width = "100%";
+            again.textContent = "Main Lagi";
+            again.onclick = startGuess;
+            document.querySelector(".guess-wrap").appendChild(again);
+          } else if (val < secretNumber) {
+            msg.textContent = "⬆️ Terlalu kecil! Coba lebih besar.";
+            msg.style.color = "#f59e0b";
+          } else {
+            msg.textContent = "⬇️ Terlalu besar! Coba lebih kecil.";
+            msg.style.color = "#f59e0b";
+          }
+          input.value = "";
+          input.focus();
+        }
+        btn.onclick = submitGuess;
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") submitGuess();
+        });
+        setTimeout(() => input.focus(), 100);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kabar Pagi — Portal Berita</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --bg: #faf8f5;
+        --card: #fff;
+        --ink: #1a1a1a;
+        --muted: #6b6b6b;
+        --accent: #0f766e;
+        --border: #e5e0d8;
+      }
+      body {
+        font-family: Georgia, "Times New Roman", serif;
+        background: var(--bg);
+        color: var(--ink);
+        line-height: 1.6;
+      }
+      .container {
+        max-width: 960px;
+        margin: auto;
+        padding: 0 20px;
+      }
+
+      header.top {
+        border-bottom: 3px double var(--ink);
+        padding: 20px 0 14px;
+        text-align: center;
+        background: var(--bg);
+      }
+      header.top h1 {
+        font-size: 2.6rem;
+        letter-spacing: -1px;
+        margin-bottom: 4px;
+      }
+      header.top p {
+        font-family: "Segoe UI", sans-serif;
+        font-size: 0.78rem;
+        color: var(--muted);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+      .back {
+        display: inline-block;
+        margin: 20px 0 0;
+        font-size: 0.85rem;
+        color: var(--accent);
+        font-family: "Segoe UI", sans-serif;
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      nav.cats {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 30px;
+      }
+      .cat {
+        font-family: "Segoe UI", sans-serif;
+        font-size: 0.82rem;
+        font-weight: 600;
+        padding: 7px 16px;
+        border-radius: 999px;
+        background: var(--card);
+        border: 1.5px solid var(--border);
+        color: var(--muted);
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .cat.active,
+      .cat:hover {
+        background: var(--accent);
+        color: #fff;
+        border-color: var(--accent);
+      }
+
+      .headline {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 28px;
+        margin-bottom: 44px;
+        padding-bottom: 36px;
+        border-bottom: 1px solid var(--border);
+      }
+      .headline .img-box {
+        background: linear-gradient(135deg, #5eead4, #0f766e);
+        border-radius: 14px;
+        height: 280px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 5rem;
+        color: #fff;
+      }
+      .headline .meta {
+        font-family: "Segoe UI", sans-serif;
+        font-size: 0.75rem;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+      .headline h2 {
+        font-size: 2rem;
+        line-height: 1.2;
+        margin-bottom: 14px;
+      }
+      .headline p {
+        color: var(--muted);
+        font-size: 1rem;
+        margin-bottom: 18px;
+      }
+      .headline .read {
+        font-family: "Segoe UI", sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .grid-news {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 26px;
+      }
+      .card-news {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        transition: 0.25s;
+        display: flex;
+        flex-direction: column;
+      }
+      .card-news:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07);
+      }
+      .card-news .cover {
+        height: 140px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: #fff;
+      }
+      .c1 {
+        background: linear-gradient(135deg, #fca5a5, #dc2626);
+      }
+      .c2 {
+        background: linear-gradient(135deg, #93c5fd, #1d4ed8);
+      }
+      .c3 {
+        background: linear-gradient(135deg, #fcd34d, #d97706);
+      }
+      .c4 {
+        background: linear-gradient(135deg, #c4b5fd, #7c3aed);
+      }
+      .c5 {
+        background: linear-gradient(135deg, #86efac, #059669);
+      }
+      .c6 {
+        background: linear-gradient(135deg, #fbcfe8, #db2777);
+      }
+      .card-news .body {
+        padding: 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .card-news .cat-label {
+        font-family: "Segoe UI", sans-serif;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+      .card-news h3 {
+        font-size: 1.05rem;
+        line-height: 1.3;
+        margin-bottom: 10px;
+        flex: 1;
+      }
+      .card-news .date {
+        font-family: "Segoe UI", sans-serif;
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+
+      .no-result {
+        grid-column: 1/-1;
+        text-align: center;
+        padding: 50px 20px;
+        font-family: "Segoe UI", sans-serif;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      footer {
+        margin-top: 60px;
+        border-top: 1px solid var(--border);
+        padding: 24px 0;
+        text-align: center;
+        font-family: "Segoe UI", sans-serif;
+        font-size: 0.82rem;
+        color: var(--muted);
+      }
+      footer em {
+        font-style: normal;
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      @media (max-width: 760px) {
+        header.top h1 {
+          font-size: 1.9rem;
+        }
+        .headline {
+          grid-template-columns: 1fr;
+        }
+        .headline .img-box {
+          height: 200px;
+          font-size: 3.5rem;
+        }
+        .headline h2 {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a class="back" href="index.html">← Kembali ke Portofolio</a>
+      <header class="top">
+        <h1>Kabar Pagi</h1>
+        <p>Edisi Digital • Sabtu, 15 November 2025</p>
+      </header>
+    </div>
+
+    <div class="container">
+      <nav class="cats" id="cats">
+        <button class="cat active" data-cat="all">Semua</button>
+        <button class="cat" data-cat="teknologi">Teknologi</button>
+        <button class="cat" data-cat="bisnis">Bisnis</button>
+        <button class="cat" data-cat="gaya">Gaya Hidup</button>
+        <button class="cat" data-cat="sains">Sains</button>
+      </nav>
+
+      <div id="headlineWrap"></div>
+      <div class="grid-news" id="newsGrid"></div>
+
+      <footer>
+        &copy; 2025 <em>Kabar Pagi</em> — Proyek demo portofolio oleh Nadira
+        Puspitasari.
+      </footer>
+    </div>
+
+    <script>
+      const articles = [
+        {
+          id: 1,
+          title:
+            "Startup Lokal Rilis Framework Ringan untuk Aplikasi Web Modern",
+          cat: "teknologi",
+          emoji: "💻",
+          date: "15 Nov 2025",
+          cls: "c2",
+          excerpt:
+            "Framework baru ini diklaim mampu memangkas waktu build hingga 40% dibandingkan solusi serupa di pasar.",
+        },
+        {
+          id: 2,
+          title:
+            "Ekonomi Kreatif Indonesia Tumbuh 8,4 Persen di Kuartal Ketiga",
+          cat: "bisnis",
+          emoji: "📈",
+          date: "14 Nov 2025",
+          cls: "c3",
+          excerpt:
+            "Sektor animasi, desain, dan pengembangan perangkat lunak menjadi motor utama pertumbuhan.",
+        },
+        {
+          id: 3,
+          title:
+            "Riset: Tidur Cukup Tingkatkan Produktivitas Kerja Hingga 30 Persen",
+          cat: "gaya",
+          emoji: "😴",
+          date: "14 Nov 2025",
+          cls: "c5",
+          excerpt:
+            "Studi terhadap 1.200 pekerja kantor menunjukkan korelasi kuat antara kualitas tidur dan performa.",
+        },
+        {
+          id: 4,
+          title: "Astronom Temukan Jejak Air di Atmosfer Eksoplanet Terdekat",
+          cat: "sains",
+          emoji: "🪐",
+          date: "13 Nov 2025",
+          cls: "c4",
+          excerpt:
+            "Penemuan ini membuka peluang baru dalam pencarian tanda-tanda kehidupan di luar tata surya.",
+        },
+        {
+          id: 5,
+          title: "Panduan Memulai Karier Sebagai Front-end Developer di Era AI",
+          cat: "teknologi",
+          emoji: "🚀",
+          date: "13 Nov 2025",
+          cls: "c1",
+          excerpt:
+            "Skill apa saja yang perlu dipupuk agar tetap relevan dalam 5 tahun ke depan? Simak ulasannya.",
+        },
+        {
+          id: 6,
+          title:
+            "UMKM Kuliner Mulai Lompat ke Pasar Digital Melalui Platform Lokal",
+          cat: "bisnis",
+          emoji: "🍜",
+          date: "12 Nov 2025",
+          cls: "c6",
+          excerpt:
+            "Lebih dari 12.000 UMKM tercatat bergabung sepanjang tahun ini, meningkat 2 kali lipat.",
+        },
+      ];
+
+      const headlineData = {
+        title:
+          "Perancang Antarmuka Kini Dituntut Pahami Aksesibilitas Sejak Awal Proses",
+        cat: "Gaya Hidup",
+        date: "15 November 2025",
+        excerpt:
+          "Standar aksesibilitas web kian diperhitungkan perusahaan teknologi. Bukan hanya soal estetika, tetapi bagaimana produk bisa dinikmati semua orang, termasuk pengguna pembaca layar.",
+        emoji: "🎨",
+      };
+
+      const headlineWrap = document.getElementById("headlineWrap");
+      const newsGrid = document.getElementById("newsGrid");
+      let activeCat = "all";
+
+      function renderHeadline(show) {
+        if (!show) {
+          headlineWrap.innerHTML = "";
+          return;
+        }
+        headlineWrap.innerHTML = `
+    <div class="headline">
+      <div class="img-box">${headlineData.emoji}</div>
+      <div>
+        <div class="meta">${headlineData.cat} • ${headlineData.date}</div>
+        <h2>${headlineData.title}</h2>
+        <p>${headlineData.excerpt}</p>
+        <a class="read" href="#" onclick="return false">Baca Selengkapnya →</a>
+      </div>
+    </div>
+  `;
+      }
+
+      function renderGrid() {
+        const filtered = articles.filter(
+          (a) => activeCat === "all" || a.cat === activeCat,
+        );
+        if (filtered.length === 0) {
+          newsGrid.innerHTML = `<div class="no-result">Belum ada artikel di kategori ini.</div>`;
+          return;
+        }
+        newsGrid.innerHTML = filtered
+          .map(
+            (a) => `
+    <article class="card-news">
+      <div class="cover ${a.cls}">${a.emoji}</div>
+      <div class="body">
+        <div class="cat-label">${a.cat}</div>
+        <h3>${a.title}</h3>
+        <div class="date">${a.date}</div>
+      </div>
+    </article>
+  `,
+          )
+          .join("");
+      }
+
+      document.querySelectorAll(".cat").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll(".cat")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          activeCat = btn.dataset.cat;
+          renderHeadline(activeCat === "all");
+          renderGrid();
+        });
+      });
+
+      renderHeadline(true);
+      renderGrid();
+    </script>
+  </body>
+</html>
